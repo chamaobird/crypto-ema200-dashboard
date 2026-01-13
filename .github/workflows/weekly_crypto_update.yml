@@ -1,0 +1,33 @@
+name: Weekly Crypto EMA200 Update - Sunday 21h10 UTC
+
+on:
+  schedule:
+    - cron: '10 21 * * 0'  # Every Sunday at 21:10 UTC
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pandas requests
+      
+      - name: Run crypto update
+        run: python standalone_final.py
+      
+      - name: Commit and push
+        run: |
+          git config --global user.email "bot@crypto-ema200.dev"
+          git config --global user.name "Crypto Bot"
+          git add crypto_ema200_top50.csv
+          git commit -m "Auto: Weekly crypto EMA200 update - $(date -u +%Y-%m-%d\ %H:%M:%S\ UTC)" || true
+          git push
