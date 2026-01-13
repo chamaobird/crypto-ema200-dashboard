@@ -102,7 +102,7 @@ dist_min, dist_max = st.sidebar.slider(
 df = df[(df['dist_pct'] >= dist_min) & (df['dist_pct'] <= dist_max)]
 
 # Abas principais
-tab1, tab2, tab3 = st.tabs(["📊 Tabela", "📋 Rankings", 📝 Info"])
+tab1, tab2, tab3 = st.tabs(["Tabela", "Rankings", "Info"])
 
 with tab1:
     st.subheader("Dados de Moedas")
